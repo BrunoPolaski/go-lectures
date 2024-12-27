@@ -1,15 +1,29 @@
-package addresses
+package addresses_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/BrunoPolaski/go-lectures/tests/addresses"
+)
 
 func TestAddressType(t *testing.T) {
-	testAddress := "aaawawaw 123"
+	t.Run("shall_return_road_if_road_is_passed", func(t *testing.T) {
+		testString := "Alley Road"
+		expected := "Road"
+		result := addresses.AddressType(testString)
 
-	wantedAddressType := "Road"
+		if result != expected {
+			t.Fatalf("\n Failed: %s returned. Expected: %s. \n", result, expected)
+		}
+	})
 
-	receivedAddressType := AddressType(testAddress)
+	t.Run("shall_return_invalid_type_if_nothing_is_passed", func(t *testing.T) {
+		testString := ""
+		expected := "Invalid address type"
+		result := addresses.AddressType(testString)
 
-	if receivedAddressType != wantedAddressType {
-		t.Errorf("AddressType(%s) = %s; want %s", testAddress, receivedAddressType, wantedAddressType)
-	}
+		if result != expected {
+			t.Fatalf("\n Failed: %s returned. Expected: %s. \n", result, expected)
+		}
+	})
 }

@@ -1,15 +1,22 @@
 package addresses
 
-import "strings"
+import (
+	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+)
 
 func AddressType(address string) string {
-	validTypes := []string{"road", "street", "avenue", "boulevard"}
+	caser := cases.Title(language.English)
 
-	addressFirstWord := strings.Split(address, " ")[0]
+	validTypes := []string{"road", "street", "avenue", "boulevard"}
+	addressSplitted := strings.Split(address, " ")
+	addressLastWord := addressSplitted[len(addressSplitted)-1]
 
 	for _, validType := range validTypes {
-		if strings.ToLower(addressFirstWord) == validType {
-			return strings.Title(validType)
+		if strings.ToLower(addressLastWord) == validType {
+			return caser.String(validType)
 		}
 	}
 
